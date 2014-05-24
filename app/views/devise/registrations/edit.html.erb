@@ -36,7 +36,7 @@
   <div class="panel-footer">
     
     <h3>Total Allowed Pin  : <strong><%= current_user.allowed_pins %> </strong></h3>
-    <p>Want to Increae Allowed Pin ? <%= button_to "INCREASE NO OF PINS", orders_path(), :method => :get, class: "btn btn-primary" %></p>
+    <p>only <strong><%=current_user.allowed_pins - current_user.pins.length%> </strong> pins are remaning, Want to Increae Allowed Pin ? <%= button_to "INCREASE NO OF PINS", orders_path(), :method => :get, class: "btn btn-primary" %></p>
     
     <h3>Cancel my account</h3>
 

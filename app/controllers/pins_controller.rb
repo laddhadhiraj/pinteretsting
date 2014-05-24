@@ -5,6 +5,13 @@ class PinsController < ApplicationController
 
   def index
     @pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
+
+    if user_signed_in?
+      remaning_pins = current_user.allowed_pins - current_user.pins.length
+      if remaning_pins <= 1000
+        flash[:notice] = "You have remaning pins only <strong>" +  remaning_pins.to_s() +"</strong>, please <a href='/orders'>Order</a> for more pin."
+       end 
+     end
   end
 
   def show
@@ -18,12 +25,16 @@ class PinsController < ApplicationController
   end
 
   def create
-    @pin = current_user.pins.build(pin_params)
-    if @pin.save
-      redirect_to @pin, notice: 'Pin was successfully created.'
-    else
-      render action: 'new'
-    end
+    if  current_user.allowed_pins > current_user.pins.length 
+      @pin = current_user.pins.build(pin_params)
+      if @pin.save
+        redirect_to @pin, notice: 'Pin was successfully created.'
+      else
+        render action: 'new'
+      end
+     else
+        redirect_to orders_path, notice: 'You can not add more pin, please buy more pins'
+     end 
   end
 
   def update

@@ -1,8 +1,9 @@
 <div class="plans_detail">
-  
-  <div class="alert alert-info">You can add only <strong><%= current_user.allowed_pins %> </strong> pins.</div>
+   <div class="alert alert-info">You can add <strong><%= current_user.allowed_pins %> </strong> pins but you have only <strong><%=current_user.allowed_pins - current_user.pins.length%> </strong> pinsremaining .</div>
   <h1>Increase your total pin count: </h1>
   <br/>
+
+  <%= render 'form' %>
   <div class="row">
     
     <div class="col-md-offset-2 col-md-4">
@@ -18,7 +19,7 @@
             </ul>
           </div>
           <div class="panel-footer center">
-            <button class="btn btn-primary" data-title="$10 - Silver Plan">Buy Now</button>
+            <button class="btn btn-primary paynow" data-title="$10 - Silver Plan" data-price="10">Buy Now</button>
            </div>
         </div>    
     </div>
@@ -36,7 +37,7 @@
             </ul>
           </div>
           <div class="panel-footer center">
-            <button class="btn btn-primary" data-title="$25 - Gold Plan">Buy Now</button>
+            <button class="btn btn-primary paynow" data-title="$25 - Gold Plan" data-price="25">Buy Now</button>
            </div>
         </div>    
     </div>
@@ -44,3 +45,37 @@
 
   </div>
 </div>
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<script>
+  var handler = StripeCheckout.configure({
+    key: 'pk_test_lf1w4aaofwiWutwOZ1sznJ73',
+    // image: '/square-image.png',
+    token: function(token, args) {
+      // Use the token to create the charge with a server-side script.
+      // You can access the token ID with `token.id`
+      console.log("token",token);
+      console.log("args",args);
+      
+      $("#order_strip_token").val(token.id);
+      $("#order_strip_response").val(JSON.stringify(token));
+      $("#new_order").submit();
+    }
+  });
+
+  $('.paynow').bind('click',function(e){
+    // Open Checkout with further options
+    var obj = {
+        name: 'Pintrist - Increase your pins',
+        description: $(this).attr('data-title'),
+        amount: $(this).attr('data-price') * 100
+      };
+      
+      $("#order_product").val($(this).attr('data-title'));
+
+      handler.open(obj);
+      e.preventDefault();
+  })
+
+ 
+</script>
