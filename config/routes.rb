@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  resources :orders
+
   resources :pins
 
-  devise_for :users
+  # devise_for :users
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+
   root 'pins#index'
   get 'about' => 'pages#about' # create about_path
   

@@ -1,6 +1,9 @@
-<div class="panel panel-default">
+
+
+
+<div id="signup" class="panel panel-default ">
 	<div class="panel-heading">
-		<h1>Sign up</h1>
+		<h1>Sign up - <sapn class="plan_name"></sapn></h1><a href="#" id="change_plan">Change Plan</a>
 	</div>
 	<div class="panel-body">
 		<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
@@ -24,4 +27,15 @@
 	<div class="panel-footer">
 		<%= render "devise/shared/links" %>
 	</div>	
+</div>
+
+<div>
+	  <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="pk_test_lf1w4aaofwiWutwOZ1sznJ73"
+    data-amount="2000"
+    data-name="Demo Site"
+    data-description="2 widgets ($20.00)"
+    data-image="/128x128.png">
+  </script>
 </div>
