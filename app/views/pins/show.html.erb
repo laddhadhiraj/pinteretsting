@@ -1,12 +1,81 @@
 <%= link_to 'Back', pins_path %>
 
+
+<% content_for(:head) do %>
+<%= stylesheet_link_tag "/javascript/jquery.Jcrop" %>
+<%= javascript_include_tag "/stylesheets/jquery.Jcrop.min" %>
+
+<script type="text/javascript" charset="utf-8">
+$(function() {
+	var jcrop_api;
+	$("#crop_btn").click(function(){
+		$("#crop_btn").html('Cancel');
+		if($("#crop_btn").attr('data-type') == 'crop'){ 
+
+			 $("#crop_save").show();
+
+			 $("#crop_btn").attr('data-type','')
+			  $('#cropbox').Jcrop({
+			    onChange: update_crop,
+			    onSelect: update_crop,
+			    setSelect: [0, 0, 500, 500],
+			    aspectRatio: 1
+			  },function(){
+			  	jcrop_api = this;
+			  });
+		 }else{
+		 	$("#crop_save").hide();
+		 	$("#crop_btn").html('Crop Image');
+		 	$("#crop_btn").attr('data-type','crop');
+		 	jcrop_api.destroy();
+		 	$(".jcrop-holder").remove();
+		 	$("#cropbox").show();
+		 	$("#cropbox").css('display','');
+		 	$("#cropbox").css('visibility','');
+		 }
+
+
+	});
+});
+
+function update_crop(coords) {
+  var rx = 100/coords.w;
+  var ry = 100/coords.h;
+  $('#preview').css({
+    width: Math.round(rx * <%= @pin.image_geometry(:large).width %>) + 'px',
+    height: Math.round(ry * <%= @pin.image_geometry(:large).height %>) + 'px',
+    marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+    marginTop: '-' + Math.round(ry * coords.y) + 'px'
+  });
+  var ratio = <%= @pin.image_geometry(:original).width %> / <%= @pin.image_geometry(:large).width %>;
+  $("#crop_x").val(Math.round(coords.x * ratio));
+  $("#crop_y").val(Math.round(coords.y * ratio));
+  $("#crop_w").val(Math.round(coords.w * ratio));
+  $("#crop_h").val(Math.round(coords.h * ratio));
+}
+</script>
+<% end %>
+
 <div class="row">
 	<div class="col-md-offset-2 col-md8">
 			
 			<div class="panel panel-default">
 
 			<div class="panel-heading center">
-					<%= image_tag @pin.image.url%>
+				<div class="text-right">
+					<%=form_for @pin do |f| %>
+						  <% for attribute in [:crop_x, :crop_y, :crop_w, :crop_h] %>
+						    <%= f.hidden_field attribute, :id => attribute %>
+						  <% end %>
+						  <button type="submit" id="crop_save" data-type="crop" class="btn btn-info" style="display:none;float:left">Save </button>
+						<% end %>
+
+					<button type="button" id="crop_btn" data-type="crop" class="btn btn-info">Crop Image</button>
+				</div>
+					<%= image_tag @pin.image.url(:large), :id => "cropbox"%>
+
+					
+
 			</div>	
 			<div class="panel-body">
 				<p>
