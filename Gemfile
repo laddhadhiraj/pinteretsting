@@ -42,6 +42,9 @@ gem 'masonry-rails', '~> 0.2.0'
 gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
 
+
+gem 'instagram'
+
 # gem 'stripe', github: 'stripe/stripe-ruby'
 
 

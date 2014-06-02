@@ -8,6 +8,21 @@ Rails.application.routes.draw do
 
   root 'pins#index'
   get 'about' => 'pages#about' # create about_path
+
+  get 'connect' => 'instagram#connect'
+  get 'oauth/connect' => 'instagram#oauth_connect'
+  get 'oauth/callback' => 'instagram#oauth_callback'
+  get 'nav' => 'instagram#nav'
+  get 'user_recent_media' => 'instagram#user_recent_media'
+  get 'user_media_feed' => 'instagram#user_media_feed'
+  get 'location_recent_media' => 'instagram#location_recent_media'
+  get 'media_search' => 'instagram#media_search'
+  get 'media_popular' => 'instagram#media_popular'
+  get 'user_search' => 'instagram#user_search'
+  get 'location_search' => 'instagram#location_search'
+  get 'location_search_4square' => 'instagram#location_search_4square'
+  get 'tags' => 'instagram#tags'
+  get 'limits' => 'instagram#limits'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
