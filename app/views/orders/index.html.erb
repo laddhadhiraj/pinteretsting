@@ -5,7 +5,7 @@
 
   <%= render 'form' %>
   <div class="row">
-    
+    <% if current_user.product_name == 'free' %>
     <div class="col-md-offset-2 col-md-4">
       <div class="panel panel-default">
           <div class="panel-heading">
@@ -24,7 +24,9 @@
         </div>    
     </div>
 
-    <div class="col-md-4">
+    <% end %>
+
+    <div class="<% if current_user.product_name != 'free' %> col-md-offset-4 <% end %> col-md-4">
       <div class="panel panel-default">
           <div class="panel-heading">
             <h1>$25 - Gold Plan</h1> 

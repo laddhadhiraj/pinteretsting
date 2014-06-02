@@ -4,6 +4,9 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
+    if current_user.product_name == 'gold'
+      redirect_to root_path
+    end 
     @order = Order.new
   end
 
@@ -14,6 +17,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/new
   def new
+
+    if current_user.product_name == 'gold'
+      redirect_to root_path
+    end 
+
     @order = Order.new
   end
 
@@ -24,6 +32,10 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
+    if current_user.product_name == 'gold'
+      redirect_to root_path
+    end 
+
     @order = current_user.orders.build(order_params)
 
     respond_to do |format|
@@ -31,13 +43,16 @@ class OrdersController < ApplicationController
         
         if order_params[:product] == '$25 - Gold Plan'
           add_pin = 100
+          plan = 'gold'
         else
            add_pin = 25
+           plan = 'silver'
         end
             
         #Increase User pin on successfully payment recevied
         user = User.find(current_user.id)
         user.allowed_pins += add_pin
+        user.product_name = plan
         user.save()
 
         format.html { redirect_to edit_user_registration_path, notice: 'Your Payment successfully received.' }
