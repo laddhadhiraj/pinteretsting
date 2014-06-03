@@ -1,0 +1,83 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+			<div style="width:150px;float:left"><h1>Instagram </h1></div>
+			
+			<div style="float:right">
+					<img src="<%= @i_user.profile_picture%>" alt="" class="img-responsive img-circle" width="75"><br/>
+				 	<span><%= @i_user.username %>	</span>
+			</div>
+			<div style="clear:both"></div>
+ 		 </div>
+  </div>
+  <div class="panel-body">
+			<div class="container" style="min-height:300px;">
+					<div class="row">
+						<div class="col-md-2">
+							<%= render 'leftnav' %>
+						</div>
+						<div class="col-md-9 well">
+ 						
+									<div class="row">
+										<div class="col-md-offset-2 col-md8">
+												
+												<div class="panel panel-default">
+
+												<div class="panel-heading center">
+												
+														<%= image_tag @media_item.images.standard_resolution.url%>
+
+
+												</div>	
+												<div class="panel-body">
+													<p>
+													  <%= @media_item.caption.text %>
+													</p>
+													<p><strong><%= @media_item.caption.from.username if @media_item.caption.from%></strong>
+												
+												<span style="float:right"> <img src="<%= @media_item.caption.from.profile_picture%>" alt="" class="img-responsive img-circle" width="75"></span>
+													</p>
+												<div> <br> <br></div>
+	
+													<p>
+													<strong>Total Like</strong> :  <%= @media_item.likes[:count] %><br>
+													<% @media_item.likes.data.each do |u|%>
+													 <%= u.full_name%>,
+													 <% end %>
+													</p>		
+													<p>
+													<strong>Total comment</strong> :  <%= @media_item.comments[:count] %><br>
+													<ul>
+													<% @media_item.comments.data.each do |u|%>
+													 	<li>
+													 		<p> 
+													 			<div>
+													 				<strong><%= u.from.full_name%></strong>
+													 				<span style="float:right"> <img src="<%= u.from.profile_picture%>" alt="" class="img-responsive img-circle" width="75"></span>
+													 			</div>
+													 			<%= u.text%> 
+																	
+													 		</p>
+													 	</li>
+													 <% end %>
+													 </ul>	
+													</p>
+												 
+												</div>
+
+
+												</div>		
+										</div>
+									</div>
+
+
+						</div>
+					</div>
+	
+
+			</div>
+
+
+  </div>
+   
+</div>

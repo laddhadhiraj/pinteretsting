@@ -1,15 +1,13 @@
 class InstagramController < ApplicationController
-  
-  before_action :set_client, except: [:oauth_connect, :oauth_callback]
-
 	CALLBACK_URL = "/oauth/callback"
-
-
-
 	Instagram.configure do |config|
 	  config.client_id = "af57299b8ffb4346991d0b9b972cf75e" 
-	  config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5" 
+	  config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5"
 	end
+
+def connect
+  render inline: '<a href="/oauth/connect">Connect with Instagram</a>'
+end
 
 def oauth_connect
   if current_user.instagram_token != ''
@@ -52,56 +50,34 @@ end
 
 def user_recent_media
 
-    # client = Instagram.client(:access_token =>  session[:access_token])
+  client = Instagram.client(:access_token => session[:access_token])
+  @user = client.user
+  html = "<h1>#{@user.username}'s recent media</h1>"
+  for media_item in client.user_recent_media
+    html << "<img src='#{media_item.images.thumbnail.url}'>"
+  end
 
-     @i_user = @client.user
-    html = "<h1>#{@i_user.username}'s recent media</h1>"
-    for media_item in @client.user_recent_media
-      html << "<img src='#{media_item.images.thumbnail.url}'>"
-      @media_item = media_item
-      html << "<%= debug @media_item %>"
-    end
-    html << "<%= debug @user %>"
-
-    @media = @client.user_recent_media
-    # render inline: html
-  
-end
-
-def show
-  @i_user = @client.user
-# 
-  @media_item = @client.media_item(params[:id])
-
-  html = "<h1>#{@i_user.username}'s recent media</h1>"
-  html << "<%= debug @media_item %>"
-  # render inline: html
-
+  html << "<%= debug @user %>"
+  render inline: html
 end
 
 def user_media_feed 
-  
-   user = @client.user
-   @i_user = user
-
+  client = Instagram.client(:access_token => session[:access_token])
+  user = client.user
   html = "<h1>#{user.username}'s media feed</h1>"
 
-  page_1 = @client.user_media_feed()
-  @media =  page_1
-
-  # page_2_max_id = page_1.pagination.next_max_id
-  # page_2 = @client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
-  # html << "<h2>Page 1</h2><br/>"
-  # for media_item in page_1
-  #   html << "<img src='#{media_item.images.thumbnail.url}'>"
-  # end
-  # html << "<h2>Page 2</h2><br/>"
-  # for media_item in page_2
-  #   html << "<img src='#{media_item.images.thumbnail.url}'>"
-  # end
-  # render inline: html
-
-   render "user_recent_media"
+  page_1 = client.user_media_feed(777)
+  page_2_max_id = page_1.pagination.next_max_id
+  page_2 = client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
+  html << "<h2>Page 1</h2><br/>"
+  for media_item in page_1
+    html << "<img src='#{media_item.images.thumbnail.url}'>"
+  end
+  html << "<h2>Page 2</h2><br/>"
+  for media_item in page_2
+    html << "<img src='#{media_item.images.thumbnail.url}'>"
+  end
+  render inline: html
 end
 
 def location_recent_media
@@ -178,13 +154,5 @@ def  limits
 
  render inline:  html
 end
-
- private
- def set_client
-    @client = Instagram.client(:access_token => session[:access_token])
-    if !@client.user
-      redirect_to "/instagram/connect"
-    end  
- end
 
 end

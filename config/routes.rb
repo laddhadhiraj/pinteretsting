@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'social/index'
+
   resources :orders
 
   resources :pins
@@ -9,8 +11,10 @@ Rails.application.routes.draw do
   root 'pins#index'
   get 'about' => 'pages#about' # create about_path
 
-  get 'connect' => 'instagram#connect'
-  get 'oauth/connect' => 'instagram#oauth_connect'
+  get 'instagram/connect' => 'instagram#oauth_connect'
+
+  get 'instagram/show/:id' => 'instagram#show'
+
   get 'oauth/callback' => 'instagram#oauth_callback'
   get 'nav' => 'instagram#nav'
   get 'user_recent_media' => 'instagram#user_recent_media'

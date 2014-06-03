@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140601083641) do
+ActiveRecord::Schema.define(version: 20140603081718) do
 
   create_table "orders", force: true do |t|
     t.integer  "user_id"
@@ -53,6 +53,9 @@ ActiveRecord::Schema.define(version: 20140601083641) do
     t.string   "name"
     t.integer  "allowed_pins",           default: 10
     t.string   "product_name",           default: "free"
+    t.string   "instagram_token"
+    t.string   "facebook_token"
+    t.string   "twitter_token"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

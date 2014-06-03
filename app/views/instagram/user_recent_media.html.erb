@@ -1,0 +1,58 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+			<div style="width:150px;float:left"><h1>Instagram </h1></div>
+			
+			<div style="float:right">
+					<img src="<%= @i_user.profile_picture%>" alt="" class="img-responsive img-circle" width="75"><br/>
+				 	<span><%= @i_user.username %>	</span>
+			</div>
+			<div style="clear:both"></div>
+ 		 </div>
+  </div>
+  <div class="panel-body">
+			<div class="container" style="min-height:300px;">
+					<div class="row">
+						<div class="col-md-2">
+							<%= render 'leftnav' %>
+						</div>
+						<div class="col-md-9 well">
+
+				<div id="pins" class="transitions-enabled">
+				  
+				  <% @media.each do |pin| %>
+	
+
+				  <div class="box panel panel-default">
+				  <a href="/instagram/show/<%=pin.id%>">
+				    <%=  image_tag(pin.images.thumbnail.url) %>
+				   </a>
+				    <div class="panel-body">
+	
+							<p><%= pin.caption.text if defined? pin.caption.text %></p> 
+				      <p><strong> <%= pin.caption.from.username if defined? pin.caption.from %></strong></p>
+ 				         <div class="action">
+				          Likes(<%=pin.likes[:count]%>)
+				           |
+				           Comments(<%=pin.comments[:count]%>)
+				         </div> 
+				        
+				    </div>
+				   </div> 
+ 
+				  <% end %>
+				</div> 
+
+
+
+						</div>
+					</div>
+	
+
+			</div>
+
+
+  </div>
+   
+</div>
+	

@@ -45,6 +45,8 @@ gem 'will_paginate-bootstrap'
 
 gem 'instagram'
 
+gem 'debugger'
+
 # gem 'stripe', github: 'stripe/stripe-ruby'
 
 
