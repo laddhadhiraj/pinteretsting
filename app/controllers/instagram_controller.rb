@@ -6,10 +6,15 @@ class InstagramController < ApplicationController
 
 
 
-	Instagram.configure do |config|
-	  config.client_id = "af57299b8ffb4346991d0b9b972cf75e" 
-	  config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5" 
-	end
+	# Instagram.configure do |config|
+	#   config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
+	#   config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
+	# end
+
+  Instagram.configure do |config|
+    config.client_id = "af57299b8ffb4346991d0b9b972cf75e" 
+    config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5" 
+  end
 
 def oauth_connect
   if current_user.instagram_token != ''
@@ -159,15 +164,17 @@ def location_search_4square
 end
 
 def tags
-  client = Instagram.client(:access_token => session[:access_token])
-  html = "<h1>Search for tags, get tag info and get media by tag</h1>"
-  tags = client.tag_search('freebikeproject')
-  html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
-  for media_item in client.tag_recent_media(tags[0].name)
-    html << "<img src='#{media_item.images.low_resolution.url}'>"
-  end
+
+  @i_user = @client.user
+  tags = @client.tag_search('freebikeproject')
+  # html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
+  @media = @client.tag_recent_media(tags[0].name);
+  # for media_item in client.tag_recent_media(tags[0].name)
+  #   html << "<img src='#{media_item.images.low_resolution.url}'>"
+  # end
   
-  render inline: html
+  # render inline: html
+  render "user_recent_media"
 end
 
 def  limits
