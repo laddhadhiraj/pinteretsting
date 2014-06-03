@@ -29,7 +29,7 @@ def oauth_callback
   current_user.save()
 
   session[:access_token] = response.access_token
-  redirect_to "/nav"
+  redirect_to "/user_recent_media"
 end
 
 def  nav
