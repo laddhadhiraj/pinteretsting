@@ -11,10 +11,10 @@ class InstagramController < ApplicationController
   end
 
 # for lcoalhost
-  Instagram.configure do |config|
-    config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
-    config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
-  end
+  # Instagram.configure do |config|
+  #   config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
+  #   config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
+  # end
 
 def oauth_connect
   if current_user.instagram_token != ''
