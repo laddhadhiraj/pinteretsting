@@ -43,7 +43,9 @@
 				  <% end %>
 				</div> 
 
-
+  <div class="panel-footer" style="text-align: right;">
+  	<%= raw("<a href='#{@next_page}'>Next </a>") unless @next_page.nil? %>
+  </div>
 
 						</div>
 					</div>
@@ -53,6 +55,8 @@
 
 
   </div>
+
+
    
 </div>
 	

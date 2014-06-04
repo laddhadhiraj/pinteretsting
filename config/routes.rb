@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   get 'oauth/callback' => 'instagram#oauth_callback'
   get 'nav' => 'instagram#nav'
   get 'user_recent_media' => 'instagram#user_recent_media'
+  get 'user_recent_media/:id' => 'instagram#user_recent_media'
   get 'user_media_feed' => 'instagram#user_media_feed'
+  get 'user_media_feed/:id' => 'instagram#user_media_feed'
   get 'location_recent_media' => 'instagram#location_recent_media'
   get 'media_search' => 'instagram#media_search'
   get 'media_popular' => 'instagram#media_popular'
@@ -26,6 +28,7 @@ Rails.application.routes.draw do
   get 'location_search' => 'instagram#location_search'
   get 'location_search_4square' => 'instagram#location_search_4square'
   get 'tags' => 'instagram#tags'
+  get 'tags/:id' => 'instagram#tags'
   get 'limits' => 'instagram#limits'
   
   # The priority is based upon order of creation: first created -> highest priority.

@@ -4,16 +4,16 @@ class InstagramController < ApplicationController
 
 	CALLBACK_URL = "/oauth/callback"
 
-
-
-	# Instagram.configure do |config|
-	#   config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
-	#   config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
-	# end
-
+ # For production
   Instagram.configure do |config|
     config.client_id = "af57299b8ffb4346991d0b9b972cf75e" 
     config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5" 
+  end
+
+# for lcoalhost
+  Instagram.configure do |config|
+    config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
+    config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
   end
 
 def oauth_connect
@@ -68,9 +68,22 @@ def user_recent_media
     end
     html << "<%= debug @user %>"
 
-    @media = @client.user_recent_media
+    # @media = @client.user_recent_media
+
+ if params[:id]
+      @media = @client.user_recent_media( 'self',:max_id => params[:id])
+   else
+    @media = @client.user_recent_media('self')
+  end
+
+
+    @next_page = @media.pagination.next_max_id;
+    unless @next_page.nil?
+      @next_page = '/user_recent_media/' <<  @next_page.to_s()
+     end 
+
     # render inline: html
-  
+    # render json: @next_page
 end
 
 def show
@@ -91,8 +104,19 @@ def user_media_feed
 
   html = "<h1>#{user.username}'s media feed</h1>"
 
-  page_1 = @client.user_media_feed()
+  if params[:id]
+      page_1 =  @client.user_recent_media(777, :max_id => params[:id] )  
+   else
+    page_1 = @client.user_media_feed(777)
+  end
   @media =  page_1
+
+  @next_page = @media.pagination.next_max_id;
+
+  unless @next_page.nil?
+    @next_page = '/user_media_feed/' <<  @next_page.to_s()
+   end 
+  # render json: page_1.pagination.next_max_id
 
   # page_2_max_id = page_1.pagination.next_max_id
   # page_2 = @client.user_recent_media(777, :max_id => page_2_max_id ) unless page_2_max_id.nil?
@@ -106,7 +130,7 @@ def user_media_feed
   # end
   # render inline: html
 
-   render "user_recent_media"
+    render "user_recent_media"
 end
 
 def location_recent_media
@@ -166,13 +190,32 @@ end
 def tags
 
   @i_user = @client.user
+
+
+
   tags = @client.tag_search('freebikeproject')
   # html << "<h2>Tag Name = #{tags[0].name}. Media Count =  #{tags[0].media_count}. </h2><br/><br/>"
-  @media = @client.tag_recent_media(tags[0].name);
+  
+
+  if params[:id]
+      @media = @client.tag_recent_media(tags[0].name, :max_id => params[:id])
+   else
+     @media = @client.tag_recent_media(tags[0].name);
+  end
+
+
+ 
   # for media_item in client.tag_recent_media(tags[0].name)
   #   html << "<img src='#{media_item.images.low_resolution.url}'>"
   # end
   
+
+  @next_page = @media.pagination.next_max_id;
+
+  unless @next_page.nil?
+    @next_page = '/tags/' <<  @next_page.to_s()
+   end 
+
   # render inline: html
   render "user_recent_media"
 end
