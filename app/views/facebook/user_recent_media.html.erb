@@ -1,0 +1,61 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+			<div style="width:150px;float:left"><h1>Facebook </h1></div>
+			
+			<div style="float:right">
+					<img src="https://graph.facebook.com/<%=@f_user["id"]%>/picture" alt="<%=@f_user["first_name"] %>" class="img-responsive img-circle" width="75"><br/>
+				 	<span><%=@f_user["first_name"] %>	</span>
+			</div>
+			<div style="clear:both"></div>
+ 		 </div>
+  </div>
+  <div class="panel-body">
+			<div class="container" style="min-height:300px;">
+					<div class="row">
+						<div class="col-md-2">
+						 	<%= render 'leftnav' %>
+						</div>
+						<div class="col-md-9 well">
+
+				<div id="pins" class="transitions-enabled">
+				  
+				 <% @media.each do |pin| %>
+	
+
+				  <div class="box panel panel-default">
+				  <a href="/fb/show/<%=pin["id"]%>">
+				    <%=  image_tag(pin["picture"]) %>
+				   </a>
+				    <div class="panel-body">
+	
+							<p><%= pin["name"] if defined? pin["name"] %></p> 
+				      <p><strong> <%= pin["from"]["name"] if defined? pin["from"] %></strong></p>
+ 				         <div class="action">
+				          
+				         </div> 
+				        
+				    </div>
+				   </div> 
+ 
+				  <% end %>
+				</div> 
+
+   <div class="panel-footer">
+   	<%= link_to 'Previous', url_for(:page => @media.previous_page_params) %>
+  <span  style="float: right;"><%= link_to 'Next', url_for(:page => @media.next_page_params) %></span>	
+  </div>
+
+						</div>
+					</div>
+	
+
+			</div>
+
+
+  </div>
+
+
+   
+</div>
+	

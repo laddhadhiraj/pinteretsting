@@ -12,12 +12,20 @@ Rails.application.routes.draw do
   get 'about' => 'pages#about' # create about_path
 
   get 'instagram/connect' => 'instagram#oauth_connect'
+  get 'fb/connect' => 'facebook#oauth_connect'
 
   get 'instagram/show/:id' => 'instagram#show'
+  get 'fb/show/:id' => 'facebook#show'
 
   get 'oauth/callback' => 'instagram#oauth_callback'
+  get 'fb/oauth/callback' => 'facebook#oauth_callback'
+
+
   get 'nav' => 'instagram#nav'
   get 'user_recent_media' => 'instagram#user_recent_media'
+  get 'fb/user_recent_media' => 'facebook#user_recent_media'
+
+
   get 'user_recent_media/:id' => 'instagram#user_recent_media'
   get 'user_media_feed' => 'instagram#user_media_feed'
   get 'user_media_feed/:id' => 'instagram#user_media_feed'

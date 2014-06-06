@@ -10,19 +10,19 @@ class InstagramController < ApplicationController
     config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5" 
   end
 
-# for lcoalhost
-  # Instagram.configure do |config|
-  #   config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
-  #   config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
-  # end
+# # for lcoalhost
+#   Instagram.configure do |config|
+#     config.client_id = "0806789b717045e4b6ed231dc3282c0c" 
+#     config.client_secret = "d8f063e0bafb489c878af3b402506b7a" 
+#   end
 
 def oauth_connect
-  if current_user.instagram_token != ''
+  if current_user.instagram_token == ''
     c = "http://"<< request.host_with_port.to_s() << CALLBACK_URL
     redirect_to Instagram.authorize_url(:redirect_uri => c)
    else
     session[:access_token] = current_user.instagram_token
-    redirect_to "/nav"
+    redirect_to "/user_recent_media"
    end 
 end
 

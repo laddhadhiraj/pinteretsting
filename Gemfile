@@ -44,6 +44,7 @@ gem 'will_paginate-bootstrap'
 
 
 gem 'instagram'
+gem "koala", "~> 1.10.0rc"
 
 gem 'debugger'
 

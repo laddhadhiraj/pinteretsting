@@ -1,0 +1,88 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+			<div style="width:150px;float:left"><h1>Facebook </h1></div>
+			
+			<div style="float:right">
+					<img src="https://graph.facebook.com/<%=@f_user["id"]%>/picture" alt="<%=@f_user["first_name"] %>" class="img-responsive img-circle" width="75"><br/>
+				 	<span><%=@f_user["first_name"] %>	</span>
+			</div>
+			<div style="clear:both"></div>
+ 		 </div>
+  </div>
+  <div class="panel-body">
+			<div class="container" style="min-height:300px;">
+					<div class="row">
+						<div class="col-md-2">
+							<%= render 'leftnav' %>
+						</div>
+						<div class="col-md-9 well">
+ 						
+									<div class="row">
+										<div class="col-md-offset-2 col-md8">
+												
+												<div class="panel panel-default">
+
+												<div class="panel-heading center">
+												
+														<%= image_tag @media_item["source"]%>
+
+
+												</div>	
+												<div class="panel-body">
+													<p>
+													  <%= @media_item["name"] %>
+													</p>
+													<p><strong><%= @media_item["from"]["name"] if @media_item["from"]["name"]%></strong>
+												
+												<span style="float:right"> <img src="https://graph.facebook.com/<%=@media_item["from"]["id"]%>/picture" alt="<%= @media_item['from']['name'] %>" alt="" class="img-responsive img-circle" width="75"></span>
+													</p>
+												<div> <br> <br></div>
+	
+										<% if @media_item["likes"] %>
+													<p>
+													<strong>Total Like</strong> : <br>
+													<% @media_item["likes"]["data"].each do |u|%>
+													 <%= u["name"]%>,
+													 <% end %>
+													</p>
+										<% end %>
+			
+										<% if @media_item["comments"] %>
+													<p>
+													<strong>Total comment</strong> : <br>
+													<ul>
+													<% @media_item["comments"]["data"].each do |u|%>
+													 	<li>
+													 		<p> 
+													 			<div>
+													 				<strong><%= u["from"]["name"]%></strong>
+													 				<span style="float:right"> <img src="https://graph.facebook.com/<%=u["from"]["id"]%>/picture" alt="" class="img-responsive img-circle" width="75"></span>
+													 			</div>
+													 			<%= u["message"]%> 
+																	
+													 		</p>
+													 	</li>
+													 <% end %>
+													 </ul>	
+													</p>
+											<% end %>			
+												 
+												</div>
+
+
+												</div>		
+										</div>
+									</div>
+
+
+						</div>
+					</div>
+	
+
+			</div>
+
+
+  </div>
+   
+</div>
