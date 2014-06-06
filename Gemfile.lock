@@ -75,14 +75,6 @@ GEM
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.9.1)
       faraday (>= 0.7.4, < 0.10)
-    fbgraph (1.10.0)
-      activesupport
-      faraday (>= 0.7.5)
-      hashie (>= 1.0.0)
-      i18n
-      json (>= 1.0.0)
-      oauth2 (>= 0.5.0)
-      rest-client
     hashie (2.1.1)
     hike (1.2.3)
     i18n (0.6.9)
@@ -101,7 +93,6 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.1)
-    jwt (1.0.0)
     koala (1.10.0rc2)
       addressable
       faraday
@@ -114,14 +105,7 @@ GEM
     mime-types (1.25.1)
     minitest (5.3.3)
     multi_json (1.10.0)
-    multi_xml (0.5.5)
     multipart-post (2.0.0)
-    oauth2 (0.9.4)
-      faraday (>= 0.8, < 0.10)
-      jwt (~> 1.0)
-      multi_json (~> 1.3)
-      multi_xml (~> 0.5)
-      rack (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.17.1)
     polyglot (0.3.4)
@@ -151,8 +135,6 @@ GEM
     rake (10.3.1)
     rdoc (4.1.1)
       json (~> 1.4)
-    rest-client (1.6.7)
-      mime-types (>= 1.16)
     sass (3.2.19)
     sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
@@ -200,7 +182,6 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   debugger
   devise (~> 3.1.0.rc2)
-  fbgraph
   instagram
   jbuilder (~> 2.0)
   jquery-rails
