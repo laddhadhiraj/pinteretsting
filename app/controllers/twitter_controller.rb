@@ -8,12 +8,20 @@ class TwitterController < ApplicationController
 	 			'consumer_secret' =>'N6vrELYaNXhp9bM4F1F7yTaEYcyvYkTCOsGK5nvvrsOQlViXU6'
 	 			 }
 
-	 # loal
+	 # # loal
 	 # TWconfig = {
 	 # 			'consumer_key' => 'PFI4ZSzBOiCqRaDCIrBemQIP0',
 	 # 			'consumer_secret' =>'ZvwwdTuYmshUJPM8kmhQFaleAoWyO2rePeYzPvgK5qKHcOdglA'
 	 # 			 }	 			 
 	 def oauth_connect
+
+	 	# 	current_user.twitter_token = nil
+   # 	current_user.twitter_secret = nil
+	  # current_user.save()
+
+	  # session[:tw_access_token] = nil
+	  # session[:tw_access_secret] = nil
+
 
 		if current_user.twitter_token.nil?
 			 	c = "http://"<< request.host_with_port.to_s() << CALLBACK_URL
@@ -32,7 +40,7 @@ class TwitterController < ApplicationController
 
    	 else
    			session[:tw_access_token] = current_user.twitter_token
-   			session[:tw_access_secret] = current_user.secret
+   			session[:tw_access_secret] = current_user.twitter_secret
    			redirect_to "/tw/user_recent_media"
    	  end	 
 
@@ -62,7 +70,7 @@ class TwitterController < ApplicationController
 									)
 
    	current_user.twitter_token = access_token.token
-   	current_user.twitter_secret = access_token.token
+   	current_user.twitter_secret = access_token.secret
 	  current_user.save()
 
 	  session[:tw_access_token] = access_token.token
@@ -94,6 +102,8 @@ class TwitterController < ApplicationController
 			#     :token => session[:tw_access_token],
 			#     :secret => session[:tw_access_secret]
 			# )
+			# render json: @client_auth.authorized?
+			# return
 
 			@client_rest = Twitter::REST::Client.new do |config|
 			  config.consumer_key        = TWconfig['consumer_key']
