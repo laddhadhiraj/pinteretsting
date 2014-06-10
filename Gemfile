@@ -43,10 +43,13 @@ gem 'will_paginate', '~> 3.0.5'
 gem 'will_paginate-bootstrap'
 
 
+gem 'twitter'
+gem 'twitter_oauth'
 gem 'instagram'
 gem "koala", "~> 1.10.0rc"
 
 gem 'debugger'
+gem 'json'
 
 # gem 'stripe', github: 'stripe/stripe-ruby'
 

@@ -1,0 +1,60 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+			<div style="width:150px;float:left"><h1>Twitter </h1></div>
+			
+			<div style="float:right">
+					<img src="<%= @t_user["profile_image_url"]%>" class="img-responsive img-circle" width="75"><br/>
+				 	<span><%=@t_user["name"] %>	</span>
+			</div>
+			<div style="clear:both"></div>
+ 		 </div>
+  </div>
+  <div class="panel-body">
+			<div class="container" style="min-height:300px;">
+					<div class="row">
+						<div class="col-md-2">
+						 	<%= render 'leftnav' %>
+						</div>
+						<div class="col-md-9 well">
+
+				<div id="pins" class="transitions-enabled">
+				  
+				 <% @media.each do |pin| %>
+
+						 <% pin['attrs'][:entities][:media].each do |pic|%>
+								  <div class="box panel panel-default">
+								  <a href="/tw/show/<%=pin['attrs'][:id]%>">
+								    <%=  image_tag(pic[:media_url]) %>
+								   </a>
+								    <div class="panel-body">
+
+											<p><%= pin['attrs'][:text] if defined? pin['attrs'][:text] %></p> 
+								      <p><strong> <%= pin['attrs'][:user][:name] if defined? pin['attrs'][:user] %></strong></p>
+									         <div class="action">
+								          
+								         </div> 
+								        
+								    </div>
+								   </div> 
+						<% end %>
+				
+				  <% end %>
+				</div> 
+
+   <div class="panel-footer">
+   </div>
+
+						</div>
+					</div>
+	
+
+			</div>
+
+
+  </div>
+
+
+   
+</div>
+	

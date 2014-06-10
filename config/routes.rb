@@ -13,17 +13,21 @@ Rails.application.routes.draw do
 
   get 'instagram/connect' => 'instagram#oauth_connect'
   get 'fb/connect' => 'facebook#oauth_connect'
+  get 'tw/connect' => 'twitter#oauth_connect'
 
   get 'instagram/show/:id' => 'instagram#show'
   get 'fb/show/:id' => 'facebook#show'
+  get 'tw/show/:id' => 'twitter#show'
 
   get 'oauth/callback' => 'instagram#oauth_callback'
   get 'fb/oauth/callback' => 'facebook#oauth_callback'
+  get 'tw/oauth/callback' => 'twitter#oauth_callback'
 
 
   get 'nav' => 'instagram#nav'
   get 'user_recent_media' => 'instagram#user_recent_media'
   get 'fb/user_recent_media' => 'facebook#user_recent_media'
+  get 'tw/user_recent_media' => 'twitter#user_recent_media'
 
 
   get 'user_recent_media/:id' => 'instagram#user_recent_media'
