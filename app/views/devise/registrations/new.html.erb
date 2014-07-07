@@ -1,6 +1,3 @@
-
-
-
 <div id="signup" class="panel panel-default ">
 	<div class="panel-heading">
 		<h1>Sign up - <sapn class="plan_name"></sapn></h1><a href="#" id="change_plan">Change Plan</a>
@@ -28,14 +25,10 @@
 		<%= render "devise/shared/links" %>
 	</div>	
 </div>
+<h1>Social Login</h1><br>
 
-<div>
-	  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_lf1w4aaofwiWutwOZ1sznJ73"
-    data-amount="2000"
-    data-name="Demo Site"
-    data-description="2 widgets ($20.00)"
-    data-image="/128x128.png">
-  </script>
-</div>
+<%= link_to 'Login with Facebook', '/auth/facebook/' %>
+<br>
+<%= link_to 'Login with Twitter', '/auth/twitter/' %>
+<br>
+<%= link_to 'Login with Linkedin', '/auth/linkedin/' %>

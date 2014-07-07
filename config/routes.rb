@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get '/auth/:provider/callback' => 'authentications#create'
+
   get 'social/index'
 
   resources :orders
