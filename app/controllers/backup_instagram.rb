@@ -3,6 +3,7 @@ class InstagramController < ApplicationController
 	Instagram.configure do |config|
 	  config.client_id = "af57299b8ffb4346991d0b9b972cf75e" 
 	  config.client_secret = "1299af8e94da4f4b97b9699d19ad88b5"
+    
 	end
 
 def connect
