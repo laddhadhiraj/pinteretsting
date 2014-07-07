@@ -4,6 +4,16 @@ class PinsController < ApplicationController
   before_action :correct_user, only: [:edit, :destroy]
 
   def index
+
+    person0 = "Dhiraj"
+    person1 = "Tim"
+    person2 = person1
+    
+    person1[0] = "Jfdsfads"
+
+    render json: person2
+
+
     @pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 8)
 
     if user_signed_in?
