@@ -4,8 +4,8 @@ class TwitterController < ApplicationController
 
 	 # production
 	 TWconfig = {
-	 			'consumer_key' => 'PdYhbh28bjr8HxSifXSojhFvO',
-	 			'consumer_secret' =>'N6vrELYaNXhp9bM4F1F7yTaEYcyvYkTCOsGK5nvvrsOQlViXU6'
+	 			'consumer_key' => ENV['TWITTER_KEY'],
+	 			'consumer_secret' =>ENV['TWITTER_SECRET']
 	 			 }
 
 	 # # loal
