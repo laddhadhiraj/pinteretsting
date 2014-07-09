@@ -7,6 +7,11 @@ class AuthenticationsController < ApplicationController
    
   end
 
+   def failure
+      flash[:notice] = "User canceled social Sign In."
+      sign_in_and_redirect()
+    end  
+
    def create
     auth = request.env["omniauth.auth"]
 

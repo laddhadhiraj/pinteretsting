@@ -17,11 +17,12 @@ class InstagramController < ApplicationController
 #   end
 
 def oauth_connect
-  if current_user.instagram_token == ''
+  if current_user.instagram_token == '' || current_user.instagram_token.nil?
     c = "http://"<< request.host_with_port.to_s() << CALLBACK_URL
     redirect_to Instagram.authorize_url(:redirect_uri => c)
    else
     session[:access_token] = current_user.instagram_token
+    
     redirect_to "/user_recent_media"
    end 
 end
@@ -29,6 +30,8 @@ end
 def oauth_callback 
   c = "http://"<< request.host_with_port.to_s() << CALLBACK_URL
   response = Instagram.get_access_token(params[:code], :redirect_uri => c)
+
+
 
   current_user.instagram_token = response.access_token
   current_user.save()
@@ -231,6 +234,7 @@ end
 
  private
  def set_client
+ 
     @client = Instagram.client(:access_token => session[:access_token])
     if !@client.user
       redirect_to "/instagram/connect"

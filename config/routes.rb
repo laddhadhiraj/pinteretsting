@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
   get '/auth/:provider/callback' => 'authentications#create'
+  get 'auth/failure', to: redirect('/')
 
+  
   get 'social/index'
 
   resources :orders
