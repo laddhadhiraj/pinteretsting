@@ -2,12 +2,10 @@ class FacebookController < ApplicationController
 	 before_action :set_client,  except: [:oauth_connect, :oauth_callback]
 	 CALLBACK_URL = "/fb/oauth/callback"
 
-
-
 	 # production
 	 FBConfig = {
-	 			'client_id' => '807447805946364',
-	 			'secret_id' =>'5ed07ff561d820b10b762b77d32bb488'
+	 			'client_id' => ENV['FACEBOOK_KEY'],
+	 			'secret_id' => ENV['FACEBOOK_SECRET']
 	 			 }
 
  # # local
